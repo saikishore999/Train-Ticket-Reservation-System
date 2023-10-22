@@ -2,6 +2,7 @@ pipeline{
     agent any
     environment {
         PATH = "/usr/bin/mvn:$PATH"
+        def scannerHome = tool 'sonarQube'
     }
     stages{
         stage("build code"){
@@ -14,18 +15,12 @@ pipeline{
                 sh "mvn test"
             }
         }
-        stage("code analysis"){
-            withSonarQubeEnv("SonarQube"){
-                sh """${scannerHome}/bin/sonar-sonner
-                -Dsonar.login=admin \
-                -Dsonar.password=admin@123 \
-                -Dsonar.projectKey=online \
-                -Dsonar.projectName='online' \
-                -Dsonar.host.url=http://192.168.29.181:9000 \
-                -Dsonar.token=sqa_acad5d12e9ee0bbc3a9546a1606b322365fa2722 \
-                -Dsonar.language=java \
-                -Dsonar.sourceEncoding=UTF-8/"""
-            }
-        } 
+        stage("Code Analysis"){
+            steps {
+                withSonarQubeEnv('sonarQube'){
+                sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=book -Dsonar.projectName=book -Dsonar.sources=. -Dsonar.java.binaries=target/classes -Dsonar.sourceEncoding=UTF-8"
+                 }
+             }
+         }
     }
 }
