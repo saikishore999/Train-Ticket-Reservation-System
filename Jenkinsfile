@@ -18,7 +18,7 @@ pipeline{
         stage("Code Analysis"){
             steps {
                 withSonarQubeEnv('sonarQube'){
-                sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=book -Dsonar.projectName=book -Dsonar.sources=. -Dsonar.java.binaries=target/classes -Dsonar.sourceEncoding=UTF-8"
+                sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=train -Dsonar.projectName=train -Dsonar.sources=. -Dsonar.java.binaries=target/classes -Dsonar.sourceEncoding=UTF-8"
                  }
              }
          }
