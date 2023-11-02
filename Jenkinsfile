@@ -1,7 +1,6 @@
 pipeline{
     agent any
     environment {
-        PATH = "/usr/bin/mvn:$PATH"
         def scannerHome = tool 'sonarQube'
     }
     stages{
