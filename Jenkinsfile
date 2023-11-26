@@ -1,5 +1,5 @@
 pipeline{
-    agent any
+    agent {slave}
     environment {
         PATH = "/usr/bin/mvn:$PATH"
     }
